@@ -33,24 +33,5 @@ class XBee
   rescue Errno::ENOENT => e
     puts "could not find serial port"
   end
-
-  def fetch_config
-    config = {
-      DH: dh,
-      DL: dl,
-      SH: sh,
-      SL: sl,
-      ID: network,
-      CH: channel,
-      PL: power_level,
-      PM: power_mode,
-      V: voltage,
-      DD: device_type,
-      VR: firmware,
-      HV: hardware
-    }
-
-    @parameters = Parameters.new config
-  end
 end
 

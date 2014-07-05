@@ -3,8 +3,19 @@ require './xbee'
 xb = XBee.new
 
 if xb.connect!
-  xb.fetch_config.dump
-  xb.disconnect
+  parameters = Parameters.new
+  parameters.fetch_from xb
+  parameters.dump
+
+  puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+  parameters.DL = '55555555'
+
+  parameters.write_to xb
+  parameters.fetch_from xb
+  parameters.dump
+
+  puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 else
   puts 'cant connect'
 end

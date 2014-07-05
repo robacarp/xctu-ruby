@@ -5,14 +5,51 @@ class Parameters
     attr_accessor var.to_sym
   end
 
-  def initialize variables
+  def initialize variables = {}
     VARS.each do |var|
       self.send (var + '=').to_sym, ''
     end
 
-    variables.keys.each do |var|
-      self.send "#{var}=", variables[var] if self.methods.grep var
+    update variables
+  end
+
+  def update hash
+    hash.keys.each do |var|
+      self.send "#{var}=", hash[var] if self.methods.grep var
     end
+  end
+
+  def fetch_from xbee
+    config = {
+      DH: xbee.dh,
+      DL: xbee.dl,
+      SH: xbee.sh,
+      SL: xbee.sl,
+      ID: xbee.network,
+      CH: xbee.channel,
+      PL: xbee.power_level,
+      PM: xbee.power_mode,
+      V:  xbee.voltage,
+      DD: xbee.device_type,
+      VR: xbee.firmware,
+      HV: xbee.hardware
+    }
+
+    update config
+  end
+
+  def write_to xbee
+    xbee.dh = @DH
+    xbee.dl = @DL
+
+    xbee.network = @ID
+    xbee.channel = @CH
+
+    xbee.power_mode = @PM
+
+    xbee.sample_rate = @IR
+    xbee.sample_size = @IT
+    xbee.remote_output_from = @IA
   end
 
   def dump
