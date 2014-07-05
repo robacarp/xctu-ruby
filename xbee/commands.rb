@@ -6,6 +6,14 @@ module Commands
   command reset!: "ATRE", sleep: 2
   command disconnect: "ATCN"
 
+  def connect!
+    if hup
+      true
+    else
+      connect
+    end
+  end
+
   def write!
     send "ATWR"
 

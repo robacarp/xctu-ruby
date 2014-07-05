@@ -2,7 +2,7 @@ require './xbee'
 
 xb = XBee.new
 
-if xb.connect
+if xb.connect!
   xb.fetch_config.dump
   xb.disconnect
 else
