@@ -5,6 +5,7 @@ autoload :Macro,     './xbee/commands/macro'
 autoload :Interface, './xbee/interface'
 autoload :Variables, './xbee/variables'
 autoload :Debug,     './xbee/debug'
+autoload :Parameters, './xbee/parameters'
 
 class XBee
   include Interface
@@ -28,9 +29,28 @@ class XBee
   def initialize
     @xbee = SerialPort.new port, modem_config
     @xbee.read_timeout = 350
-    debug_enable
+    # debug_enable
   rescue Errno::ENOENT => e
     puts "could not find serial port"
+  end
+
+  def fetch_config
+    config = {
+      DH: dh,
+      DL: dl,
+      SH: sh,
+      SL: sl,
+      ID: network,
+      CH: channel,
+      PL: power_level,
+      PM: power_mode,
+      V: voltage,
+      DD: device_type,
+      VR: firmware,
+      HV: hardware
+    }
+
+    @parameters = Parameters.new config
   end
 end
 
