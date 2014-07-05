@@ -1,8 +1,9 @@
 module Interface
+  extend Debug
 
   def send command, newline = true
+    debug "\x1b[34m#{command}\x1b[0m"
     command << "\r\n" if newline
-    print "\x1b[33m#{command}\x1b[0m"
     @xbee.write command
   end
 
@@ -15,8 +16,10 @@ module Interface
     rescue EOFError
     end
 
-    # p "received: " + s
-    s.strip
+    s.strip!
+
+    debug "\x1b[32m#{s}\x1b[0m"
+    s
   end
 
   def expect str
