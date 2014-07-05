@@ -1,57 +1,28 @@
 module Variables
+  extend Macro
+
+  command dh: 'ATDH'
+  command dl: 'ATDL'
+
+  command sh: 'ATSH'
+  command sl: 'ATSL'
+
+  command network: 'ATID'
+  command channel: 'ATCH'
+
+  command power_level: 'ATPL'
+  command power_mode: 'ATPM'
+
+  command device_type: 'ATDD'
+  command firmware: 'ATVR'
+  command hardware: 'ATHV'
+
+
   def destination
-    send "ATDH"
-    high = get
-
-    send "ATDL"
-    low = get
-
-    high + low
-  end
-
-  def network
-    send "ATID"
-    get
+    dh + dl
   end
 
   def serial
-    send "ATSH"
-    high = get
-
-    send "ATSL"
-    low = get
-
-    high + low
+    sh + sl
   end
-
-  def power_level
-    send "ATPL"
-    get
-  end
-
-  def power_mode
-    send "ATPM"
-    get
-  end
-
-  def device_type
-    send "ATDD"
-    get
-  end
-
-  def channel
-    send "ATCH"
-    get
-  end
-
-  def firmware
-    send "ATVR"
-    get
-  end
-
-  def hardware
-    send "ATHV"
-    get
-  end
-
 end
