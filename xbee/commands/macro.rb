@@ -1,5 +1,20 @@
 module Macro
 
+  ##
+  # macro for defining an XBee AT command.
+  #
+  # Usage:
+  #   command name: 'ATCMD', opts
+  #
+  # Options:
+  #   expect: nil  - define the response expected after a command
+  #   set: false   - set to true to also generate a setter method
+  #   enter: true  - whether or not an 'enter' should be appended to the command
+  #
+  # More advanced / esoteric options:
+  #   sleep: 0      - duration to sleep after sending the command
+  #   pre_sleep: 0 - duration to sleep before sending the command
+  ##
   def command opts
     params = {
       expect: nil,
