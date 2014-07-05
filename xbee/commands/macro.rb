@@ -5,7 +5,8 @@ module Macro
       expect: nil,
       pre_sleep: 0,
       sleep: 0,
-      enter: true
+      enter: true,
+      set: false
     }
 
     names = opts.keys - params.keys
@@ -19,10 +20,18 @@ module Macro
     command = opts[name]
 
     params.merge! opts
+    params.delete name
 
+    getter name, command, params
+    setter name, command, params if params[:set]
+
+    true
+  end
+
+  private
+
+  def getter name, command, params
     define_method name do
-
-
       sleep params[:pre_sleep] if params[:pre_sleep]
 
       send command, params[:enter]
@@ -36,9 +45,17 @@ module Macro
       end
 
       value
-
-
     end
+  end
 
+  def setter name, command, params
+    name = name.to_s + '='
+
+    define_method name do |value|
+
+      send "#{command} #{value}"
+
+      expect 'OK'
+    end
   end
 end

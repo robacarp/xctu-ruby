@@ -1,21 +1,25 @@
 require './xbee'
 
 xb = XBee.new
-puts xb.connect ? 'connected' : 'cant connect'
-puts xb.channel
-puts xb.device_type
-puts xb.firmware
-puts xb.hardware
-puts xb.power_level
-puts xb.power_mode
-puts xb.network
-puts xb.destination
 
-# puts xb.reset! ? ' resetted ' : ' not as much resetted '
-xb.abort
+if xb.connect 
+  # puts 'connected'
+  puts 'ID: '          + xb.id
+  puts 'Serial: '      + xb.serial
+  puts 'Network: '     + xb.network
+  puts 'Channel: '     + xb.channel
+  puts 'Device Type: ' + xb.device_type
+  puts 'Firmware: '    + xb.firmware
+  puts 'Hardware: '    + xb.hardware
+  puts 'Power Level: ' + xb.power_level
+  puts 'Power Mode: '  + xb.power_mode
+  puts 'Voltage: '     + xb.voltage
+  puts 'Destination: ' + xb.destination
+  xb.disconnect
+else
+  puts 'cant connect'
+end
+
 # puts xb.write! ? 'success' : 'fail'
-# puts xb.power_level
-# puts xb.power_mode
-# puts xb.device_type
-# puts xb.channel
-puts xb.hup ? 'still good' : 'not good'
+# puts xb.hup ? 'still connected' : 'not connected'
+

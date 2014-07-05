@@ -4,7 +4,7 @@ module Commands
   command connect: "+++", enter: false, pre_sleep: 1, sleep: 1, expect: 'OK'
   command hup: "AT", expect: "OK"
   command reset!: "ATRE", sleep: 2
-  command abort: "ATCN"
+  command disconnect: "ATCN"
 
   def write!
     send "ATWR"
