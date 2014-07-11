@@ -3,7 +3,7 @@ module Interface
 
   def send command, newline = true
     debug "\x1b[34m#{command}\x1b[0m"
-    command += "\r\n" if newline
+    command += "\r" if newline
     @xbee.write command
   end
 

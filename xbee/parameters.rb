@@ -20,6 +20,8 @@ class Parameters
   end
 
   def fetch_from xbee
+    xbee.connect!
+
     config = {
       DH: xbee.dh,
       DL: xbee.dl,
@@ -39,6 +41,8 @@ class Parameters
   end
 
   def write_to xbee
+    xbee.connect!
+
     xbee.dh = @DH
     xbee.dl = @DL
 

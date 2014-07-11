@@ -13,6 +13,8 @@ class XBee
   include Variables
   include Debug
 
+  attr_accessor :port
+
   def modem_config
     modem_config = {
       'baud'      => 9600,
@@ -22,14 +24,11 @@ class XBee
     }
   end
 
-  def port
-    '/dev/tty.usbserial-A600eCAd'
-  end
-
   def initialize
-    @xbee = SerialPort.new port, modem_config
+    @port = '/dev/tty.usbserial-A600eCAd'
+    @xbee = SerialPort.new @port, modem_config
     @xbee.read_timeout = 350
-    # debug_enable
+    debug_enable
   rescue Errno::ENOENT => e
     puts "could not find serial port"
   end
